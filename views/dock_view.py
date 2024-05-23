@@ -55,7 +55,7 @@ def list_docks():
             docks.append(dict(row))
 
         # Serialize Python list to JSON encoded string
-        serialized_docks = json.dumps(docks)
+it        serialized_docks = json.dumps(docks)
 
     return serialized_docks
 

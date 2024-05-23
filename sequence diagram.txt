@@ -1,0 +1,29 @@
+title Shipping Ships
+
+client -> python (HTTP server framework): client sends request
+
+python (HTTP server framework) -> json-server: if GET request:\ninvoke do_GET()
+
+json-server -> nss_handler: invoke parse_url()
+
+note over nss_handler: create url_dictionary with:\n-requested_resource\n-query_params\n-pk
+
+nss_handler --> json-server: return url_dictionary
+
+json-server -> dock_view: invoke retrieve_dock() or list_docks()
+
+note over dock_view: -open connection to shipping.db\n-configure row factory to return rows\ndictionaries\n-set database cursor
+
+dock_view -> database: execute SQL query
+
+database -> dock_view: fetch query results
+
+note over dock_view: retrieved data is converted from\n python dictionary to JSON string
+
+dock_view -> json-server: return requested data in JSON format
+
+json-server -> nss_handler: invoke response()
+
+note over nss_handler: set response codes
+
+nss_handler -> client: write response content to client's connection
